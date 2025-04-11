@@ -1,0 +1,49 @@
+step 1 login to it
+
+
+mysql
+
+
+Step 2 Initialize MySQL.
+Run the following command to configure the password of user root:
+alter user root@'localhost' identified by 'Huawei@123';
+
+
+mysql -uroot -p 'Huawei@123';
+
+using mysqladmin
+
+
+Step 1 Check the MySQL status and version.
+Use the status statement to check the status of the MySQL database.
+mysqladmin -uroot -p'Huawei@123' status
+
+mysqladmin -uroot -p'Huawei@123' version
+
+
+Use the processlist statement to view the active threads of the MySQL database.
+mysqladmin -uroot -p'Huawei@123' processlist
+
+
+Step 2 Flush MySQL tables and threads.
+Run the following command to flush all tables:
+mysqladmin -uroot -p'Huawei@123' flush-tables
+Run the following command to flush the cache of all threads:
+mysqladmin -uroot -p'Huawei@123' flush-threads
+Run the following command to flush all logs:
+mysqladmin -uroot -p'Huawei@123' flush-logs
+
+
+Step 3 Check whether the MySQL status is normal.
+Use the ping statement to check whether the MySQL server is normal.
+mysqladmin -uroot -p'Huawei@123' ping
+
+
+
+
+Step 4 Create and delete a database.
+Use the create statement to create a database.
+mysqladmin -uroot -p'Huawei@123' create test
+Use the drop statement to delete a database and its tables.
+mysqladmin -uroot -p'Huawei@123' drop test
+
