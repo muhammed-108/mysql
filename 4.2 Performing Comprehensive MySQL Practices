@@ -1,0 +1,99 @@
+Step 1 Create a database.
+Run the following command to create a database:
+mysql> CREATE DATABASE Vegetables;
+After the creation is complete, view information about the created database.
+mysql> SHOW databases;
+
+Use the USE statement to access the database, and then use the SELECT statement to
+view information about the database.
+mysql> USE Vegetables;
+mysql> SELECT database();
+
+
+Step 2 Create a data table.
+When creating a table, set ID to the primary key and set Name and PIC to NOT NULL.
+mysql> CREATE TABLE Vegetables ( ID SMALLINT UNSIGNED PRIMARY KEY , Name VARCHAR(10)
+NOT NULL , Price DECIMAL(5, 2) , Qty DECIMAL(7, 2) , PIC VARCHAR(10) NOT NULL );
+To make the statement structure clearer, you can also write it as follows:
+mysql> CREATE TABLE Vegetables (
+ -> ID SMALLINT UNSIGNED PRIMARY KEY,
+ -> Name VARCHAR(10) NOT NULL,
+ -> Price DECIMAL(5, 2),
+ -> Qty DECIMAL(7, 2),
+ -> PIC VARCHAR(10) NOT NULL
+-> );
+
+After the table is created, use related statements to view information about the table,
+such as SHOW and SELECT.
+
+
+show tables;
+
+view the table structure 
+DESC Vegetables;   ## vegetables is name of table
+
+
+Step 3 Add data.
+Add data to the table in sequence.
+mysql> INSERT Vegetables VALUES
+ -> (1,'Cabbage',NULL,200,'Tom'),
+ -> (2,'Potato',2.60,300,'Peter'),
+ -> (3,'Bok choy',6,150,'Jim'),
+ -> (4,'Tomato',5.2,230,'Betty'),
+-> (5,'Cucumber',8,330,'Jim');
+
+
+Step 4 Perform data queries.
+Query information about the vegetables managed by Jim from the table.
+mysql> SELECT * FROM Vegetables WHERE PIC='Jim';
+
+mysql> SELECT * FROM Vegetables WHERE Price>7 and Qty<180;
+
+Step 5 Modify data.
+Change the price of the vegetable whose ID is 1 to 4.2.
+mysql> UPDATE Vegetables SET Price=4.2 WHERE ID=1;
+
+
+Step 6 Create users and grant permissions.
+Create users vegetable_user and vegetable_admin as planned and set their passwords
+to Huawei@123.
+mysql> CREATE USER vegetable_user@localhost identified by 'Huawei@123';
+
+Query OK, 0 rows affected (0.50 sec)
+mysql> CREATE USER vegetable_admin@localhost identified by 'Huawei@123';
+Query OK, 0 rows affected (0.01 sec)
+mysql> FLUSH PRIVILEGES;
+Query OK, 0 rows affected (0.41 sec)
+
+Modify the attributes of the users.
+mysql> use mysql;
+mysql> UPDATE user SET HOST='%' WHERE user LIKE 'vege%';
+
+
+
+Grant permissions to the created users as planned.
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION;
+mysql> flush privileges;
+mysql> GRANT ALL PRIVILEGES ON Vegetables.* TO vegetable_admin@'%';
+mysql> GRANT SELECT ON Vegetables.* TO vegetable_user@'%';
+
+
+
+
+Step 7 Modify and delete the database, data tables, and users.
+Change the table name from Vegetables to Vegetable1.
+mysql> ALTER TABLE Vegetables rename as Vegetable1;
+
+Delete the Vegetable1 table.
+mysql> DROP TABLE Vegetable1;
+
+Delete the Vegetables database.
+mysql> DROP DATABASE Vegetables;
+
+
+Log in to the MySQL database as user root and delete users vegetable_user and
+vegetable_admin.
+mysql> DROP USER vegetable_user, vegetable_admin;
+
+
+
